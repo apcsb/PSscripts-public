@@ -1,0 +1,16 @@
+USED AS IS. YOUR RISK AND RESPONSIBILITY.
+
+USAGE EXAMPLE for CMD
+^ is the newline escape for multiline commands, you don't need it if putting everything on a single line
+
+Powershell.exe ^
+	-File winget_tool.ps1 ^
+	-Action UploadWin32App  ^
+	-PackageID 7zip.7zip ^
+	-PackageVersion 22.01 ^
+	-DisplayName "7Zip (WinGet_Tool)" ^
+	-Description "Demo of a WinGet Win32 upload PS1 script" ^
+	-Publisher "7ZIP" ^
+	[-IconFile "7zip.png"] - by default we are looking for $PackageID_Icon.*, so either rename or specify a parameter
+
+Other actions are listed in the PS1 file (Install, Uninstall, Detect, GenerateCheck). I will write embedded help into the PS1 file in due time.

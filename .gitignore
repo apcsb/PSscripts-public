@@ -1,0 +1,5 @@
+__Backups/*.*
+__DONOTSYNC/*.*
+__TempTest/*.*
+WingetTool/*_check.ps1
+WingetTool/__winget-install-cmd.txt

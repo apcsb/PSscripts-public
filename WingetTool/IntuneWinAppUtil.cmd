@@ -1,0 +1,1 @@
+IntuneWinAppUtil.exe -c WinGetWrapper -o WinGetWrapper.IntuneWin -s setup.cmd
