@@ -4,4 +4,4 @@ __TempTest/*.*
 WingetTool/*_check.ps1
 WingetTool/*_Icon.*
 WingetTool/__winget-install-cmd.txt
-WingetTool/IntuneWinAppUtil.cmd
+WingetTool/IntuneWinAppUtil.*
