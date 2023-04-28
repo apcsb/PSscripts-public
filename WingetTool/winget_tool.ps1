@@ -15,10 +15,10 @@ Param
     [parameter(Mandatory=$false)][String]$IntuneWinAppUtil = "IntuneWinAppUtil.exe",
 
    #parameters for AAD Tenant (Win32 Upload, maybe more later)
-    [parameter(Mandatory=$false)][String]$AAD_TenantID     = "21755296-e18f-4367-b4f0-bc44af8c07c3",
-    [parameter(Mandatory=$false)][String]$AAD_ClientID     = "448813ec-e3e0-4a33-9bb8-1f3c232e5b8c", #PowerShell app
+    [parameter(Mandatory=$false)][String]$AAD_TenantID     = "<TENANT_ID>",
+    [parameter(Mandatory=$false)][String]$AAD_ClientID     = "<CLIENT_ID>", #PowerShell app
     #order of preference: Cert (name -or thumb, searched in CurrentUser and LocalMachine, 1st match), ClientSecret
-    [parameter(Mandatory=$false)][String]$AAD_ClientCertName = "APCAAD",
+    [parameter(Mandatory=$false)][String]$AAD_ClientCertName = "<CERT_SUBJECT>",
     [parameter(Mandatory=$false)][String]$AAD_ClientCertThumb,
     [parameter(Mandatory=$false)][String]$AAD_ClientSecret,
 
