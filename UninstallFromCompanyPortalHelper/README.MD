@@ -2,6 +2,7 @@
 USE AS IS. I BEAR NO RESPONSIBILITY - IT IS ALL YOUR PROBLEM.
 
 This script helps review and enable the newly released Intune feature "Allow manual uninstallation of app via Company Portal".
+Detailed post: https://arsenb.wordpress.com/?p=1818
 
 This script can do the following:
 * **Export** (Review): connects to Intune and exports into two CSV files all apps that do not have an uninstall command, and all apps that do have an uninstall command. You can reviews these lists and take actions.   
