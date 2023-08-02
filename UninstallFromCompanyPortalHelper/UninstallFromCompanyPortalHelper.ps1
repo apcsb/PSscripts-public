@@ -41,6 +41,7 @@
 .NOTES
     Author: Arsen Bandurian
     Version: 2023-08-02-001
+    https://github.com/apcsb/PSscripts-public/tree/master/UninstallFromCompanyPortalHelper
 #>
 
 [CmdletBinding(DefaultParameterSetName="Intune")]
