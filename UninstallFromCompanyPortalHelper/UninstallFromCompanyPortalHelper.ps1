@@ -61,7 +61,7 @@ if ($PSBoundParameters.Count -eq 0) {
     exit
 }
 
-#Check if requires modules are installed
+#Check if required modules are installed
 $required_modules  = @("Microsoft.Graph.Authentication", "Microsoft.Graph.Devices.CorporateManagement")
 foreach ($module in $required_modules) {
     if (!(Get-Module -ListAvailable $module)) {
