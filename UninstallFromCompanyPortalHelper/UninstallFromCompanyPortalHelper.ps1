@@ -60,6 +60,20 @@ if ($PSBoundParameters.Count -eq 0) {
     Write-Output "------------------------------------------"
     exit
 }
+
+#Check if requires modules are installed
+$required_modules  = @("Microsoft.Graph.Authentication", "Microsoft.Graph.Devices.CorporateManagement")
+foreach ($module in $required_modules) {
+    if (!(Get-Module -ListAvailable $module)) {
+        Write-Output "!! Module $($module) is not installed. Attempting to install from PSGallery."
+        Install-Module $module -Force
+        if (!(Get-Module -ListAvailable $module)) {
+            Write-Error "!! Failed to install $($module). Cannot continue."
+            exit -1
+        }
+    }
+}
+
 # Authenticate with Microsoft Graph API
 $GraphScopes = if ($UpdateFromIntune.IsPresent -or $UpdateFromFile) { "DeviceManagementApps.ReadWrite.All" } else { "DeviceManagementApps.Read.All"}
 Write-Output "### Connecting to Microsoft Graph API with scopes: $($GraphScopes)"
