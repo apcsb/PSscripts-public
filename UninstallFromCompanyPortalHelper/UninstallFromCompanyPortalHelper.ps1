@@ -146,6 +146,6 @@ if ($UpdateFromFile -or $UpdateFromIntune.IsPresent) {
         #$check = Invoke-MgGraphRequest -Method GET -Uri $Uri
         #Write-Output "$(if ($check.allowAvailableUninstall) {"OK"} else {"FAIL"} )"
     }
-    Write-Output "### IMPORT MODE COMPLETED ###"
+    Write-Output "### UPDATE MODE COMPLETED ###"
     Write-Output "### ALL DONE ###"
 }
