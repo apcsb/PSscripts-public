@@ -15,10 +15,10 @@ Param
     [parameter(Mandatory=$false)][String]$IntuneWinAppUtil = "IntuneWinAppUtil.exe",
 
    #parameters for AAD Tenant (Win32 Upload, maybe more later)
-    [parameter(Mandatory=$false)][String]$AAD_TenantID     = "<TENANT_ID>",
-    [parameter(Mandatory=$false)][String]$AAD_ClientID     = "<CLIENT_ID>", #PowerShell app
+    [parameter(Mandatory=$false)][String]$AAD_TenantID     = "21755296-e18f-4367-b4f0-bc44af8c07c3",
+    [parameter(Mandatory=$false)][String]$AAD_ClientID     = "448813ec-e3e0-4a33-9bb8-1f3c232e5b8c", #PowerShell app
     #order of preference: Cert (name -or thumb, searched in CurrentUser and LocalMachine, 1st match), ClientSecret
-    [parameter(Mandatory=$false)][String]$AAD_ClientCertName = "<CERT_SUBJECT>",
+    [parameter(Mandatory=$false)][String]$AAD_ClientCertName = "ABAADwork",
     [parameter(Mandatory=$false)][String]$AAD_ClientCertThumb,
     [parameter(Mandatory=$false)][String]$AAD_ClientSecret,
 
@@ -30,6 +30,8 @@ Param
     #[parameter(Mandatory=$false)][String]$InstallContext = "system",  # -- see InstallScope
     [parameter(Mandatory=$false)][String]$RestartBehavior = "suppress",
     [parameter(Mandatory=$false)][String]$IconFile,
+    [parameter(Mandatory=$false)][String]$MinWindowsVersion = "W10_20H2",
+    [parameter(Mandatory=$false)][boolean]$AllowAvailableUninstall = $true,
 
    #parameters for Win32 App Assignment
     [parameter(Mandatory=$false)][Boolean]$AssignToAllUsers   = $true,
@@ -263,18 +265,19 @@ function do_UploadWin32App {
         InformationURL  = if ($InformationURL ) {$InformationURL } else {$pkginfo.Homepage}
         PrivacyURL      = if ($PrivacyURL     ) {$PrivacyURL     } else {$pkginfo["Privacy Url"]}
         Icon            = if ($ImageFile      ) {New-IntuneWin32AppIcon -FilePath $ImageFile}
+        
         #CompanyPortalFeaturedApp - maybe one day..
         #CategoryName
         #Owner
         
         InstallExperience = if ($InstallScope -eq "user") { "user"} else {"system"} #InstallScope may be undefined or "machine" - will resolve to syetem anyway
         RestartBehavior   = $RestartBehavior
-        
+        AllowAvailableUninstall = $AllowAvailableUninstall
+
         InstallCommandLine   = "%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe -windowstyle hidden -executionpolicy bypass -File winget_wrapper.ps1 -Action Install -PackageID $($PackageID) $(if ($PackageVersion) {"-PackageVersion $($PackageVersion)"}) -Verbose"
         UninstallCommandLine = "%SystemRoot%\System32\WindowsPowerShell\v1.0\powershell.exe -windowstyle hidden -executionpolicy bypass -File winget_wrapper.ps1 -Action Uninstall -PackageID $($PackageID) $(if ($PackageVersion) {"-PackageVersion $($PackageVersion)"}) -Verbose"
         DetectionRule = New-IntuneWin32AppDetectionRuleScript -ScriptFile $CheckScript -EnforceSignatureCheck $true
-
-        RequirementRule = New-IntuneWin32AppRequirementRule -Architecture "x64" -MinimumSupportedWindowsRelease "20H2"
+        RequirementRule = New-IntuneWin32AppRequirementRule -Architecture "x64" -MinimumSupportedWindowsRelease $MinWindowsVersion
         #ReturnCode = New-IntuneWin32AppReturnCode -ReturnCode 1337 -Type "retry"
     }
     #if ($ImageFile) { $Win32App_Params.Add("Icon", (New-IntuneWin32AppIcon -FilePath $ImageFile)) }
