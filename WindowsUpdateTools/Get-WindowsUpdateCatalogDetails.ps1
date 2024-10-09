@@ -89,6 +89,7 @@ param (
     [Parameter()][int]$Top,
     
     [Parameter()][string]$TenantId, #= "<YOUR VALUE HERE>", #remove the first commend and add your tenant ID to make life easier
+    [Parameter()][string]$ClientId, #= "<YOUR VALUE HERE>", #this is only necessary if you can't work with the standard Graph PowerShell application. Likely you would not need it.
 
     [Parameter()][ValidateSet("GridView", "JSON", "CSV", "Pipe")][string]$OutputType = "GridView"
 )
@@ -98,6 +99,7 @@ $GraphParams = @{
     Scopes = "WindowsUpdates.ReadWrite.All"
 }
 if ($TenantId) { $GraphParams.Add("TenantId", $TenantId) }
+if ($ClientId) { $GraphParams.Add("ClientId", $ClientId) }
 
 Connect-MgGraph @GraphParams -NoWelcome
 
